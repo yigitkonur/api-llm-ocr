@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img alt="gpt-4 vision" src="https://img.shields.io/badge/🧠_GPT--4_Vision-powered_by_OpenAI-2ED573.svg?style=for-the-badge">
+  <img alt="gpt-4/5 vision" src="https://img.shields.io/badge/🧠_GPT--4/5_Vision-powered_by_OpenAI-2ED573.svg?style=for-the-badge">
   <img alt="markdown output" src="https://img.shields.io/badge/📝_markdown_output-tables,_headers,_lists-2ED573.svg?style=for-the-badge">
 </p>
 
@@ -30,7 +30,8 @@
 [**✨ Key Features**](#-feature-breakdown-the-secret-sauce) •
 [**🎮 Usage & Examples**](#-usage-fire-and-forget) •
 [**💰 Cost Breakdown**](#-cost-breakdown-stupidly-cheap) •
-[**⚙️ Configuration**](#️-configuration)
+[**⚙️ Configuration**](#️-configuration) •
+[**🏗️ Project Structure**](#️-project-structure)
 
 </div>
 
@@ -193,7 +194,17 @@ MAX_CONCURRENT_PDF_CONVERSION=4     # Parallel page rendering
 ### Run It
 
 ```bash
+# Option 1: Classic uvicorn (backward compatible)
 uvicorn main:app --reload
+
+# Option 2: Using the new package
+uvicorn swift_ocr.app:app --reload
+
+# Option 3: As a Python module
+python -m swift_ocr
+
+# Option 4: With CLI arguments
+python -m swift_ocr --host 0.0.0.0 --port 8080 --workers 4
 ```
 
 🎉 **API is now live at `http://127.0.0.1:8000`**
@@ -232,6 +243,34 @@ curl -X POST "http://127.0.0.1:8000/ocr" \
 ```json
 {
   "text": "# Document Title\n\n## Section 1\n\nExtracted text with **formatting** preserved...\n\n| Column 1 | Column 2 |\n|----------|----------|\n| Data     | Data     |"
+}
+```
+
+### Response (v2.0+)
+
+The new response includes additional metadata:
+
+```json
+{
+  "text": "# Document Title\n\n## Section 1\n\nExtracted text...",
+  "status": "success",
+  "pages_processed": 5,
+  "processing_time_ms": 1234
+}
+```
+
+### Health Check
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+```json
+{
+  "status": "healthy",
+  "version": "2.0.0",
+  "timestamp": "2024-01-01T00:00:00Z",
+  "openai_configured": true
 }
 ```
 
@@ -289,6 +328,57 @@ All settings are managed via environment variables. Tune these for your workload
 - **High accuracy, slower:** `BATCH_SIZE=1`
 - **Balanced:** `BATCH_SIZE=5`, `MAX_CONCURRENT_OCR_REQUESTS=10`
 - **Maximum throughput:** `BATCH_SIZE=10`, `MAX_CONCURRENT_OCR_REQUESTS=20` (watch rate limits!)
+
+---
+
+## 🏗️ Project Structure
+
+World-class Python engineering with atomic modules and clean separation of concerns:
+
+```
+swift_ocr/
+├── __init__.py              # Package init with version
+├── __main__.py              # CLI entry point (python -m swift_ocr)
+├── app.py                   # FastAPI app factory
+├── config/
+│   ├── __init__.py
+│   └── settings.py          # Pydantic Settings (type-safe config)
+├── core/
+│   ├── __init__.py
+│   ├── exceptions.py        # Custom exception hierarchy
+│   ├── logging.py           # Structured logging setup
+│   └── retry.py             # Exponential backoff utilities
+├── schemas/
+│   ├── __init__.py
+│   └── ocr.py               # Pydantic request/response models
+├── services/
+│   ├── __init__.py
+│   ├── ocr.py               # OpenAI Vision OCR service
+│   └── pdf.py               # PDF conversion service
+└── api/
+    ├── __init__.py
+    ├── deps.py              # Dependency injection
+    ├── exceptions.py        # FastAPI exception handlers
+    ├── router.py            # Route aggregation
+    └── routes/
+        ├── __init__.py
+        ├── health.py        # Health check endpoints
+        └── ocr.py           # OCR endpoints
+```
+
+<details>
+<summary><b>Key architectural decisions</b></summary>
+
+| Pattern | Implementation | Benefit |
+| :--- | :--- | :--- |
+| **Pydantic Settings** | `config/settings.py` | Type-safe config with `.env` support and validation |
+| **Dependency Injection** | `api/deps.py` | Testable, swappable services |
+| **Custom Exceptions** | `core/exceptions.py` | Rich error context with proper HTTP status codes |
+| **Retry with Backoff** | `core/retry.py` | Handles rate limits and transient failures |
+| **App Factory** | `app.py` | Configurable app creation for testing |
+| **Typed Throughout** | `py.typed` marker | Full mypy compatibility |
+
+</details>
 
 ---
 
