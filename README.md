@@ -1,236 +1,95 @@
-<h1 align="center">⚡ Swift OCR ⚡</h1>
-<h3 align="center">Stop squinting at PDFs. Start extracting clean markdown.</h3>
+LLM-powered PDF to markdown. uses vision models to actually read your documents — tables, headers, mixed layouts — and outputs clean, structured markdown. not traditional OCR.
 
-<p align="center">
-  <strong>
-    <em>The LLM-powered OCR engine that turns any PDF into beautifully formatted Markdown. It reads your documents like a human, handles messy layouts, and outputs text your AI can actually understand.</em>
-  </strong>
-</p>
+```bash
+curl -X POST "http://localhost:8000/ocr" -F "file=@document.pdf"
+```
 
-<p align="center">
-  <!-- Package Info -->
-  <a href="#"><img alt="python" src="https://img.shields.io/badge/python-3.8+-4D87E6.svg?style=flat-square"></a>
-  <a href="#"><img alt="fastapi" src="https://img.shields.io/badge/FastAPI-0.100+-4D87E6.svg?style=flat-square"></a>
-  &nbsp;&nbsp;•&nbsp;&nbsp;
-  <!-- Features -->
-  <a href="https://www.gnu.org/licenses/agpl-3.0"><img alt="license" src="https://img.shields.io/badge/License-AGPL_v3-F9A825.svg?style=flat-square"></a>
-  <a href="#"><img alt="platform" src="https://img.shields.io/badge/platform-macOS_|_Linux_|_Windows-2ED573.svg?style=flat-square"></a>
-</p>
-
-<p align="center">
-  <img alt="gpt-4/5 vision" src="https://img.shields.io/badge/🧠_GPT--4/5_Vision-powered_by_OpenAI-2ED573.svg?style=for-the-badge">
-  <img alt="markdown output" src="https://img.shields.io/badge/📝_markdown_output-tables,_headers,_lists-2ED573.svg?style=for-the-badge">
-</p>
-
-<div align="center">
-
-### 🧭 Quick Navigation
-
-[**⚡ Get Started**](#-get-started-in-60-seconds) •
-[**✨ Key Features**](#-feature-breakdown-the-secret-sauce) •
-[**🎮 Usage & Examples**](#-usage-fire-and-forget) •
-[**💰 Cost Breakdown**](#-cost-breakdown-stupidly-cheap) •
-[**⚙️ Configuration**](#️-configuration) •
-[**🏗️ Project Structure**](#️-project-structure)
-
-</div>
+[![python](https://img.shields.io/badge/python-3.8+-93450a.svg?style=flat-square)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-93450a.svg?style=flat-square)](https://fastapi.tiangolo.com/)
+[![license](https://img.shields.io/badge/license-AGPL_v3-grey.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0)
 
 ---
 
-**Swift OCR** is the document processor your AI assistant wishes it had. Stop feeding your LLM screenshots and praying it reads them correctly. This tool acts like a professional transcriber, reading every page of your PDF, intelligently handling tables, headers, and mixed layouts, then packaging everything into perfectly structured Markdown so your AI can actually work with it.
-
-<div align="center">
-<table>
-<tr>
-<td align="center">
-<h3>🧠</h3>
-<b>GPT-4 Vision</b><br/>
-<sub>Human-level reading accuracy</sub>
-</td>
-<td align="center">
-<h3>⚡</h3>
-<b>Parallel Processing</b><br/>
-<sub>Multi-page PDFs in seconds</sub>
-</td>
-<td align="center">
-<h3>📝</h3>
-<b>Clean Markdown</b><br/>
-<sub>Tables, headers, lists—all formatted</sub>
-</td>
-</tr>
-</table>
-</div>
-
-How it slaps:
-- **You:** `curl -X POST "http://localhost:8000/ocr" -F "file=@messy_document.pdf"`
-- **Swift OCR:** Converts pages → Sends to GPT-4 Vision → Formats as Markdown
-- **You:** Get perfectly structured text with tables, headers, and lists intact.
-- **Result:** Your AI finally understands that 50-page contract. ☕
-
----
-
-## 📹 Demo
+## demo
 
 https://github.com/user-attachments/assets/6b39f3ea-248e-4c29-ac2e-b57de64d5d65
 
-*Demo video showcasing the conversion of NASA's Apollo 17 flight documents—complete with unorganized, horizontally and vertically oriented pages—into well-structured Markdown format without breaking a sweat.*
+NASA Apollo 17 flight docs — mixed orientations, messy layouts — converted to structured markdown.
 
 ---
 
-## 💥 Why This Slaps Other Methods
+## what it does
 
-Manually extracting text from PDFs is a vibe-killer. Swift OCR makes traditional OCR look ancient.
+- **vision model OCR** — understands context, not just character shapes
+- **parallel processing** — 50-page PDF in seconds, not minutes
+- **table preservation** — detected and formatted as proper markdown tables
+- **smart batching** — configurable pages-per-request for speed vs accuracy tradeoff
+- **retry with backoff** — handles rate limits and timeouts without crashing
+- **flexible input** — file upload or URL, your choice
+- **image descriptions** — non-text elements get `[Image: description]` annotations
 
-<table align="center">
-<tr>
-<td align="center"><b>❌ The Old Way (Pain)</b></td>
-<td align="center"><b>✅ The Swift OCR Way (Glory)</b></td>
-</tr>
-<tr>
-<td>
-<ol>
-  <li>Run Tesseract. Get garbled text.</li>
-  <li>Tables? What tables? Just random words now.</li>
-  <li>Manually fix formatting for 2 hours.</li>
-  <li>Feed broken context to your AI.</li>
-  <li>Get a useless answer. Cry.</li>
-</ol>
-</td>
-<td>
-<ol>
-  <li>Upload PDF to Swift OCR.</li>
-  <li>Get perfectly formatted Markdown.</li>
-  <li>Tables intact. Headers preserved.</li>
-  <li>Feed clean context to your AI.</li>
-  <li>Get genius-level answers. Go grab a coffee. ☕</li>
-</ol>
-</td>
-</tr>
-</table>
+## cost
 
-We're not just running basic OCR. We're using **GPT-4 Vision** to actually *understand* your documents—handling rotated pages, complex tables, mixed layouts, and even describing images for accessibility.
+using OpenAI as an example (~1,500 tokens/page average):
 
----
+| model | cost per 1,000 pages |
+|:---|:---|
+| GPT-4o | ~$15 |
+| GPT-4o mini | ~$8 |
+| batch API | ~$4 |
 
-## 💰 Cost Breakdown: Stupidly Cheap
+works with any OpenAI-compatible vision API. swap the endpoint and model in config.
 
-Our solution offers an optimal balance of affordability and accuracy that makes enterprise OCR solutions look like highway robbery.
-
-<div align="center">
-
-| Metric | Value |
-|:------:|:------|
-| **Avg tokens/page** | ~1,500 (including prompt) |
-| **GPT-4o input cost** | $5 per million tokens |
-| **GPT-4o output cost** | $15 per million tokens |
-| **Cost per 1,000 pages** | **~$15** |
-
-</div>
-
-### 💡 Want It Even Cheaper?
-
-| Optimization | Cost per 1,000 pages |
-|:------------:|:--------------------:|
-| **GPT-4o (default)** | ~$15 |
-| **GPT-4o mini** | ~$8 |
-| **Batch API** | ~$4 |
-
-### 🆚 Market Comparison
-
-<div align="center">
-
-| Solution | Cost per 1,000 pages | Tables? | Markdown? |
-|:--------:|:-------------------:|:-------:|:---------:|
-| **Swift OCR** | **$15** | ✅ Perfect | ✅ Native |
-| CloudConvert (PDFTron) | ~$30 | ⚠️ Basic | ❌ No |
-| Adobe Acrobat API | ~$50+ | ✅ Good | ❌ No |
-| Tesseract (free) | $0 | ❌ Broken | ❌ No |
-
-</div>
-
-> **Bottom line:** Half the cost of competitors, 10x the quality. It's not just about being cheaper—it's about getting output you can actually use.
-
----
-
-## 🚀 Get Started in 60 Seconds
-
-### Prerequisites
-
-- **Python 3.8+**
-- **Azure OpenAI** account (with GPT-4 Vision deployment)
-
-### Installation
+## install
 
 ```bash
-# Clone the repo
 git clone https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown.git
 cd swift-ocr-llm-powered-pdf-to-markdown
 
-# Create virtual environment (recommended)
 python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# Install dependencies
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Configure Environment
+### configure
 
-Create a `.env` file in the root directory:
+create a `.env` file:
 
 ```env
-# Required
-OPENAI_API_KEY=your_openai_api_key
+# required
+OPENAI_API_KEY=your_api_key
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-OPENAI_DEPLOYMENT_ID=your_gpt4_vision_deployment
+OPENAI_DEPLOYMENT_ID=your_vision_model_deployment
 
-# Optional (sensible defaults)
+# optional
 OPENAI_API_VERSION=gpt-4o
-BATCH_SIZE=1                        # Images per OCR request (1-10)
-MAX_CONCURRENT_OCR_REQUESTS=5       # Parallel OCR calls
-MAX_CONCURRENT_PDF_CONVERSION=4     # Parallel page rendering
+BATCH_SIZE=1
+MAX_CONCURRENT_OCR_REQUESTS=5
+MAX_CONCURRENT_PDF_CONVERSION=4
 ```
 
-### Run It
+### run
 
 ```bash
-# Option 1: Classic uvicorn (backward compatible)
+# pick one
 uvicorn main:app --reload
-
-# Option 2: Using the new package
 uvicorn swift_ocr.app:app --reload
-
-# Option 3: As a Python module
 python -m swift_ocr
-
-# Option 4: With CLI arguments
 python -m swift_ocr --host 0.0.0.0 --port 8080 --workers 4
 ```
 
-🎉 **API is now live at `http://127.0.0.1:8000`**
+API lives at `http://127.0.0.1:8000`. auto-generated docs at `/docs`.
 
-> **✨ Pro tip:** Check out the auto-generated docs at `http://127.0.0.1:8000/docs`
+## usage
 
----
-
-## 🎮 Usage: Fire and Forget
-
-### API Endpoint
-
-**POST** `/ocr`
-
-Accept a PDF file upload OR a URL to a PDF. Returns beautifully formatted Markdown.
-
-### Examples
-
-**Upload a PDF file:**
+### upload a file
 
 ```bash
 curl -X POST "http://127.0.0.1:8000/ocr" \
-  -F "file=@/path/to/your/document.pdf"
+  -F "file=@/path/to/document.pdf"
 ```
 
-**Process a PDF from URL:**
+### process from URL
 
 ```bash
 curl -X POST "http://127.0.0.1:8000/ocr" \
@@ -238,190 +97,92 @@ curl -X POST "http://127.0.0.1:8000/ocr" \
   -d '{"url": "https://example.com/document.pdf"}'
 ```
 
-### Response
+### response
 
 ```json
 {
-  "text": "# Document Title\n\n## Section 1\n\nExtracted text with **formatting** preserved...\n\n| Column 1 | Column 2 |\n|----------|----------|\n| Data     | Data     |"
-}
-```
-
-### Response (v2.0+)
-
-The new response includes additional metadata:
-
-```json
-{
-  "text": "# Document Title\n\n## Section 1\n\nExtracted text...",
+  "text": "# document title\n\n## section 1\n\nextracted text...",
   "status": "success",
   "pages_processed": 5,
   "processing_time_ms": 1234
 }
 ```
 
-### Health Check
+### health check
 
 ```bash
 curl http://127.0.0.1:8000/health
 ```
 
-```json
-{
-  "status": "healthy",
-  "version": "2.0.0",
-  "timestamp": "2024-01-01T00:00:00Z",
-  "openai_configured": true
-}
-```
+### error codes
 
-### Error Codes
+| code | meaning |
+|:---|:---|
+| `200` | success |
+| `400` | bad request (no file/URL, or both provided) |
+| `422` | validation error |
+| `429` | rate limited — retry with backoff |
+| `500` | processing error |
+| `504` | timeout downloading PDF |
 
-| Code | Meaning |
-|:----:|:--------|
-| `200` | Success—Markdown text returned |
-| `400` | Bad request (no file/URL, or both provided) |
-| `422` | Validation error |
-| `429` | Rate limited—retry with backoff |
-| `500` | Processing error |
-| `504` | Timeout downloading PDF |
+## configuration
 
----
-
-## ✨ Feature Breakdown: The Secret Sauce
-
-<div align="center">
-
-| Feature | What It Does | Why You Care |
-| :---: | :--- | :--- |
-| **🧠 GPT-4 Vision**<br/>`Human-level OCR` | Uses OpenAI's most capable vision model to read documents | Actually understands context, not just character shapes |
-| **⚡ Parallel Processing**<br/>`Multiprocessing + async` | Converts PDF pages and calls OCR in parallel | 50-page PDF in seconds, not minutes |
-| **📊 Table Preservation**<br/>`Markdown tables` | Detects and formats tables as proper Markdown | Your data stays structured, not flattened to gibberish |
-| **🔄 Smart Batching**<br/>`Configurable batch size` | Groups pages to optimize API calls vs accuracy | Balance speed and cost for your use case |
-| **🛡️ Retry with Backoff**<br/>`Exponential backoff` | Automatically retries on rate limits and timeouts | Handles API hiccups without crashing |
-| **📄 Flexible Input**<br/>`File upload or URL` | Accept PDFs directly or fetch from any URL | Works with your existing workflow |
-| **🖼️ Image Descriptions**<br/>`Accessibility-friendly` | Describes non-text elements: `[Image: description]` | Context your AI can actually use |
-
-</div>
-
----
-
-## ⚙️ Configuration
-
-All settings are managed via environment variables. Tune these for your workload:
-
-<div align="center">
-
-| Variable | Default | Description |
-|:---------|:-------:|:------------|
-| `OPENAI_API_KEY` | — | Your Azure OpenAI API key |
-| `AZURE_OPENAI_ENDPOINT` | — | Your Azure OpenAI endpoint URL |
-| `OPENAI_DEPLOYMENT_ID` | — | Your GPT-4 Vision deployment ID |
+| variable | default | description |
+|:---|:---|:---|
+| `OPENAI_API_KEY` | — | API key |
+| `AZURE_OPENAI_ENDPOINT` | — | endpoint URL |
+| `OPENAI_DEPLOYMENT_ID` | — | vision model deployment ID |
 | `OPENAI_API_VERSION` | `gpt-4o` | API version |
-| `BATCH_SIZE` | `1` | Pages per OCR request (1-10). Higher = faster but less accurate |
-| `MAX_CONCURRENT_OCR_REQUESTS` | `5` | Parallel OCR calls. Increase for throughput |
-| `MAX_CONCURRENT_PDF_CONVERSION` | `4` | Parallel page renders. Match your CPU cores |
+| `BATCH_SIZE` | `1` | pages per OCR request (1-10). higher = faster, less accurate |
+| `MAX_CONCURRENT_OCR_REQUESTS` | `5` | parallel OCR calls |
+| `MAX_CONCURRENT_PDF_CONVERSION` | `4` | parallel page renders. match your CPU cores |
 
-</div>
+### tuning
 
-### Performance Tuning Tips
+- **high accuracy:** `BATCH_SIZE=1`
+- **balanced:** `BATCH_SIZE=5`, `MAX_CONCURRENT_OCR_REQUESTS=10`
+- **max throughput:** `BATCH_SIZE=10`, `MAX_CONCURRENT_OCR_REQUESTS=20` (watch rate limits)
 
-- **High accuracy, slower:** `BATCH_SIZE=1`
-- **Balanced:** `BATCH_SIZE=5`, `MAX_CONCURRENT_OCR_REQUESTS=10`
-- **Maximum throughput:** `BATCH_SIZE=10`, `MAX_CONCURRENT_OCR_REQUESTS=20` (watch rate limits!)
-
----
-
-## 🏗️ Project Structure
-
-World-class Python engineering with atomic modules and clean separation of concerns:
+## project structure
 
 ```
 swift_ocr/
-├── __init__.py              # Package init with version
-├── __main__.py              # CLI entry point (python -m swift_ocr)
-├── app.py                   # FastAPI app factory
-├── config/
-│   ├── __init__.py
-│   └── settings.py          # Pydantic Settings (type-safe config)
-├── core/
-│   ├── __init__.py
-│   ├── exceptions.py        # Custom exception hierarchy
-│   ├── logging.py           # Structured logging setup
-│   └── retry.py             # Exponential backoff utilities
-├── schemas/
-│   ├── __init__.py
-│   └── ocr.py               # Pydantic request/response models
-├── services/
-│   ├── __init__.py
-│   ├── ocr.py               # OpenAI Vision OCR service
-│   └── pdf.py               # PDF conversion service
-└── api/
-    ├── __init__.py
-    ├── deps.py              # Dependency injection
-    ├── exceptions.py        # FastAPI exception handlers
-    ├── router.py            # Route aggregation
-    └── routes/
-        ├── __init__.py
-        ├── health.py        # Health check endpoints
-        └── ocr.py           # OCR endpoints
+  __init__.py           — package init
+  __main__.py           — CLI entry point
+  app.py                — FastAPI app factory
+  config/
+    settings.py         — pydantic settings (type-safe config)
+  core/
+    exceptions.py       — custom exception hierarchy
+    logging.py          — structured logging
+    retry.py            — exponential backoff
+  schemas/
+    ocr.py              — pydantic request/response models
+  services/
+    ocr.py              — vision model OCR service
+    pdf.py              — PDF conversion service
+  api/
+    deps.py             — dependency injection
+    exceptions.py       — FastAPI exception handlers
+    router.py           — route aggregation
+    routes/
+      health.py         — health check endpoints
+      ocr.py            — OCR endpoints
 ```
 
-<details>
-<summary><b>Key architectural decisions</b></summary>
+## troubleshooting
 
-| Pattern | Implementation | Benefit |
-| :--- | :--- | :--- |
-| **Pydantic Settings** | `config/settings.py` | Type-safe config with `.env` support and validation |
-| **Dependency Injection** | `api/deps.py` | Testable, swappable services |
-| **Custom Exceptions** | `core/exceptions.py` | Rich error context with proper HTTP status codes |
-| **Retry with Backoff** | `core/retry.py` | Handles rate limits and transient failures |
-| **App Factory** | `app.py` | Configurable app creation for testing |
-| **Typed Throughout** | `py.typed` marker | Full mypy compatibility |
+| problem | fix |
+|:---|:---|
+| missing env vars | check `.env` has `OPENAI_API_KEY`, `AZURE_OPENAI_ENDPOINT`, `OPENAI_DEPLOYMENT_ID` |
+| 429 rate limits | reduce `MAX_CONCURRENT_OCR_REQUESTS` or `BATCH_SIZE` |
+| timeout errors | large PDFs take time — backoff is built in |
+| garbled output | make sure your PDF isn't password-protected or corrupted |
+| tables misformatted | try `BATCH_SIZE=1` for complex tables |
+| failed to init client | verify endpoint format: `https://your-resource.openai.azure.com/` |
 
-</details>
+## license
 
----
+AGPL v3 — required by PyMuPDF dependency.
 
-## 🔥 Common Issues & Quick Fixes
-
-<details>
-<summary><b>Expand for troubleshooting tips</b></summary>
-
-| Problem | Solution |
-| :--- | :--- |
-| **"Missing required environment variables"** | Check your `.env` file has all three required variables: `OPENAI_API_KEY`, `AZURE_OPENAI_ENDPOINT`, `OPENAI_DEPLOYMENT_ID` |
-| **Rate limit errors (429)** | Reduce `MAX_CONCURRENT_OCR_REQUESTS` or `BATCH_SIZE`. The retry logic will handle temporary limits automatically. |
-| **Timeout errors** | Large PDFs take time. The system has exponential backoff built in—give it a moment. |
-| **Garbled output** | Make sure your PDF isn't password-protected or corrupted. Try opening it locally first. |
-| **Tables not formatting correctly** | Some extremely complex tables may need `BATCH_SIZE=1` for best accuracy. |
-| **"Failed to initialize OpenAI client"** | Verify your Azure endpoint URL format: `https://your-resource.openai.azure.com/` |
-
-</details>
-
----
-
-## 📜 License
-
-This project uses **PyMuPDF** for PDF processing, which requires the **GNU AGPL v3.0** license.
-
-> **Want MIT instead?** Fork this project and swap PyMuPDF for `pdf2image` + Poppler. The rest of the code is yours to use freely.
-
-```
-GNU AFFERO GENERAL PUBLIC LICENSE
-Version 3, 19 November 2007
-
-Copyright (C) 2024 Yiğit Konur
-```
-
-See [LICENSE.md](LICENSE.md) for the full license text.
-
----
-
-<div align="center">
-
-**Built with 🔥 because manually transcribing PDFs is a soul-crushing waste of time.**
-
-[Report Bug](https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown/issues) •
-[Request Feature](https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown/issues)
-
-</div>
+if you want MIT, swap PyMuPDF for `pdf2image` + Poppler. the rest of the code is yours.
