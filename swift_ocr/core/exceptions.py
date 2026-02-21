@@ -1,5 +1,5 @@
 """
-Custom exceptions for Swift OCR.
+Custom exceptions for api-llm-ocr.
 
 Provides a hierarchy of exceptions for better error handling and reporting.
 """
@@ -7,8 +7,8 @@ Provides a hierarchy of exceptions for better error handling and reporting.
 from typing import Any, Optional
 
 
-class SwiftOCRError(Exception):
-    """Base exception for all Swift OCR errors."""
+class ApiLlmOcrError(Exception):
+    """Base exception for all api-llm-ocr errors."""
     
     def __init__(
         self,
@@ -30,7 +30,7 @@ class SwiftOCRError(Exception):
         return self.message
 
 
-class ValidationError(SwiftOCRError):
+class ValidationError(ApiLlmOcrError):
     """Raised when input validation fails."""
     
     def __init__(
@@ -46,7 +46,7 @@ class ValidationError(SwiftOCRError):
         super().__init__(message, status_code=400, context=ctx)
 
 
-class PDFDownloadError(SwiftOCRError):
+class PDFDownloadError(ApiLlmOcrError):
     """Raised when PDF download fails."""
     
     def __init__(
@@ -63,7 +63,7 @@ class PDFDownloadError(SwiftOCRError):
         super().__init__(message, status_code=status_code, context=ctx)
 
 
-class PDFConversionError(SwiftOCRError):
+class PDFConversionError(ApiLlmOcrError):
     """Raised when PDF to image conversion fails."""
     
     def __init__(
@@ -79,7 +79,7 @@ class PDFConversionError(SwiftOCRError):
         super().__init__(message, status_code=500, context=ctx)
 
 
-class OCRProcessingError(SwiftOCRError):
+class OCRProcessingError(ApiLlmOcrError):
     """Raised when OCR processing fails."""
     
     def __init__(
@@ -96,7 +96,7 @@ class OCRProcessingError(SwiftOCRError):
         super().__init__(message, status_code=status_code, context=ctx)
 
 
-class RateLimitError(SwiftOCRError):
+class RateLimitError(ApiLlmOcrError):
     """Raised when API rate limit is exceeded."""
     
     def __init__(
@@ -112,7 +112,7 @@ class RateLimitError(SwiftOCRError):
         super().__init__(message, status_code=429, context=ctx)
 
 
-class TimeoutError(SwiftOCRError):
+class TimeoutError(ApiLlmOcrError):
     """Raised when an operation times out."""
     
     def __init__(

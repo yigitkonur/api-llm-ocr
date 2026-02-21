@@ -1,4 +1,4 @@
-# Swift OCR Dependencies
+# api-llm-ocr Dependencies
 # Python 3.8+ required
 
 # Web Framework

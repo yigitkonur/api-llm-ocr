@@ -100,7 +100,7 @@ class PDFService:
             response = requests.get(
                 str(url),
                 timeout=self.settings.pdf_download_timeout,
-                headers={"User-Agent": "SwiftOCR/2.0"},
+                headers={"User-Agent": "api-llm-ocr/2.0"},
             )
             response.raise_for_status()
             
@@ -242,7 +242,7 @@ class PDFService:
         with tempfile.NamedTemporaryFile(
             delete=False,
             suffix=".pdf",
-            prefix="swift_ocr_",
+            prefix="api_llm_ocr_",
         ) as f:
             f.write(pdf_bytes)
             temp_path = f.name

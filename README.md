@@ -43,8 +43,8 @@ works with any OpenAI-compatible vision API. swap the endpoint and model in conf
 ## install
 
 ```bash
-git clone https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown.git
-cd swift-ocr-llm-powered-pdf-to-markdown
+git clone https://github.com/yigitkonur/api-llm-ocr.git
+cd api-llm-ocr
 
 python3 -m venv venv
 source venv/bin/activate

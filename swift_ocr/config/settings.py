@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     )
     
     # API Configuration
-    app_name: str = Field(default="Swift OCR", description="Application name")
+    app_name: str = Field(default="api-llm-ocr", description="Application name")
     app_version: str = Field(default="2.0.0", description="Application version")
     debug: bool = Field(default=False, description="Enable debug mode")
     

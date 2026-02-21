@@ -1,5 +1,5 @@
 """
-Entry point for running Swift OCR as a module.
+Entry point for running api-llm-ocr as a module.
 
 Usage:
     python -m swift_ocr
@@ -13,8 +13,8 @@ import sys
 def main() -> int:
     """Main entry point for CLI."""
     parser = argparse.ArgumentParser(
-        prog="swift-ocr",
-        description="Swift OCR - LLM-powered PDF to Markdown converter",
+        prog="api-llm-ocr",
+        description="api-llm-ocr - LLM-powered PDF to Markdown converter",
     )
     parser.add_argument(
         "--host",
@@ -49,7 +49,7 @@ def main() -> int:
     
     if args.version:
         from swift_ocr import __version__
-        print(f"Swift OCR v{__version__}")
+        print(f"api-llm-ocr v{__version__}")
         return 0
     
     try:

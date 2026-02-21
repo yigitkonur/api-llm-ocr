@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError as PydanticValidationError
 
-from swift_ocr.core.exceptions import SwiftOCRError
+from swift_ocr.core.exceptions import ApiLlmOcrError
 from swift_ocr.core.logging import get_logger
 
 logger = get_logger(__name__)
@@ -22,14 +22,14 @@ def register_exception_handlers(app: FastAPI) -> None:
         app: FastAPI application instance
     """
     
-    @app.exception_handler(SwiftOCRError)
-    async def swift_ocr_error_handler(
+    @app.exception_handler(ApiLlmOcrError)
+    async def api_llm_ocr_error_handler(
         request: Request,
-        exc: SwiftOCRError,
+        exc: ApiLlmOcrError,
     ) -> JSONResponse:
-        """Handle Swift OCR custom exceptions."""
+        """Handle api-llm-ocr custom exceptions."""
         logger.error(
-            f"SwiftOCRError: {exc.message}",
+            f"ApiLlmOcrError: {exc.message}",
             extra={"context": exc.context, "status_code": exc.status_code},
         )
         return JSONResponse(

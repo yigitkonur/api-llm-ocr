@@ -1,5 +1,5 @@
 """
-Logging configuration for Swift OCR.
+Logging configuration for api-llm-ocr.
 
 Provides structured logging with configurable levels and formats.
 """

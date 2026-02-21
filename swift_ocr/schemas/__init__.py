@@ -1,4 +1,4 @@
-"""Request and response schemas for Swift OCR."""
+"""Request and response schemas for api-llm-ocr."""
 
 from swift_ocr.schemas.ocr import (
     OCRRequest,

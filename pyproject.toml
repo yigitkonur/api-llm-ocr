@@ -3,9 +3,9 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "swift-ocr"
+name = "api-llm-ocr"
 version = "2.0.0"
-description = "LLM-powered OCR engine that converts PDFs to beautifully formatted Markdown"
+description = "LLM-powered OCR API that converts PDFs to beautifully formatted Markdown"
 readme = "README.md"
 license = {text = "AGPL-3.0"}
 authors = [
@@ -66,13 +66,13 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown"
-Documentation = "https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown#readme"
-Repository = "https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown.git"
-Issues = "https://github.com/yigitkonur/swift-ocr-llm-powered-pdf-to-markdown/issues"
+Homepage = "https://github.com/yigitkonur/api-llm-ocr"
+Documentation = "https://github.com/yigitkonur/api-llm-ocr#readme"
+Repository = "https://github.com/yigitkonur/api-llm-ocr.git"
+Issues = "https://github.com/yigitkonur/api-llm-ocr/issues"
 
 [project.scripts]
-swift-ocr = "swift_ocr.__main__:main"
+api-llm-ocr = "swift_ocr.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

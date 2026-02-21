@@ -32,7 +32,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     log_level = logging.DEBUG if settings.debug else logging.INFO
     setup_logging(level=log_level)
     
-    logger.info(f"Starting Swift OCR v{__version__}")
+    logger.info(f"Starting api-llm-ocr v{__version__}")
     logger.info(f"Debug mode: {settings.debug}")
     logger.info(f"OpenAI endpoint: {settings.azure_openai_endpoint}")
     logger.info(f"Batch size: {settings.batch_size}")
@@ -41,7 +41,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     yield
     
     # Shutdown
-    logger.info("Shutting down Swift OCR")
+    logger.info("Shutting down api-llm-ocr")
 
 
 def create_app() -> FastAPI:
@@ -54,7 +54,7 @@ def create_app() -> FastAPI:
     settings = get_settings()
     
     app = FastAPI(
-        title="Swift OCR API",
+        title="api-llm-ocr API",
         description=(
             "LLM-powered OCR API that converts PDFs to beautifully formatted Markdown. "
             "Uses GPT-4 Vision for human-level text extraction with table preservation, "

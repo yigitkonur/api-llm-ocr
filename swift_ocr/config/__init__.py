@@ -1,4 +1,4 @@
-"""Configuration module for Swift OCR."""
+"""Configuration module for api-llm-ocr."""
 
 from swift_ocr.config.settings import Settings, get_settings
 

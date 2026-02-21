@@ -12,10 +12,10 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from swift_ocr.api.deps import OCRServiceDep, PDFServiceDep, SettingsDep
 from swift_ocr.core.exceptions import (
+    ApiLlmOcrError,
     OCRProcessingError,
     PDFConversionError,
     PDFDownloadError,
-    SwiftOCRError,
     ValidationError,
 )
 from swift_ocr.core.logging import get_logger
@@ -100,7 +100,7 @@ async def ocr_endpoint(
             processing_time_ms=processing_time_ms,
         )
         
-    except SwiftOCRError as e:
+    except ApiLlmOcrError as e:
         logger.error(f"OCR error: {e}")
         raise HTTPException(status_code=e.status_code, detail=e.detail)
     except HTTPException:

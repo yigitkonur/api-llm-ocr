@@ -1,7 +1,7 @@
 """
-Swift OCR - LLM-powered PDF to Markdown converter.
+api-llm-ocr - LLM-powered PDF to Markdown converter.
 
-A high-performance OCR engine that uses GPT-4 Vision to convert PDFs
+A high-performance OCR API that uses GPT-4 Vision to convert PDFs
 into beautifully formatted Markdown.
 """
 

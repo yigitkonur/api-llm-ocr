@@ -1,4 +1,4 @@
-"""API module for Swift OCR."""
+"""API module for api-llm-ocr."""
 
 from swift_ocr.api.deps import get_ocr_service, get_pdf_service, get_settings
 from swift_ocr.api.router import api_router

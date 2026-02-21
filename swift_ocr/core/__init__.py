@@ -1,7 +1,7 @@
-"""Core utilities for Swift OCR."""
+"""Core utilities for api-llm-ocr."""
 
 from swift_ocr.core.exceptions import (
-    SwiftOCRError,
+    ApiLlmOcrError,
     PDFDownloadError,
     PDFConversionError,
     OCRProcessingError,
@@ -12,7 +12,7 @@ from swift_ocr.core.logging import get_logger, setup_logging
 from swift_ocr.core.retry import retry_with_backoff
 
 __all__ = [
-    "SwiftOCRError",
+    "ApiLlmOcrError",
     "PDFDownloadError",
     "PDFConversionError",
     "OCRProcessingError",

@@ -8,7 +8,7 @@ import asyncio
 from functools import wraps
 from typing import Any, Callable, Optional, Tuple, Type, TypeVar
 
-from swift_ocr.core.exceptions import RateLimitError, SwiftOCRError
+from swift_ocr.core.exceptions import ApiLlmOcrError, RateLimitError
 from swift_ocr.core.logging import get_logger
 
 logger = get_logger(__name__)

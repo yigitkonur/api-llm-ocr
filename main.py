@@ -1,8 +1,8 @@
 """
-Swift OCR - Entry point for backward compatibility.
+api-llm-ocr - Entry point for backward compatibility.
 
 This file provides backward compatibility with the original API.
-The refactored code is in the swift_ocr package.
+The main code is in the swift_ocr package.
 
 Usage:
     uvicorn main:app --reload
