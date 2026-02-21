@@ -47,12 +47,10 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 def create_app() -> FastAPI:
     """
     Create and configure the FastAPI application.
-    
+
     Returns:
         Configured FastAPI application instance
     """
-    settings = get_settings()
-    
     app = FastAPI(
         title="api-llm-ocr API",
         description=(
